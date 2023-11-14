@@ -3,7 +3,6 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="model1.board.BoardDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="javax.swing.*" %>
 <%--
   Created by IntelliJ IDEA.
   User: Jiwon Kim
@@ -31,15 +30,39 @@
 <html>
 <head>
     <title>회원제 게시판</title>
+    <style>
+        .ListTable{
+            border: 1px solid #000;
+            width: 90%;
+        }
+        .txtcenter{
+            text-align: center;
+        }
+        .txtleft{
+            text-align: left;
+        }
+        .txtright{
+            text-align: right;
+        }
+        .listno, .listcnt{
+            width: 10%;
+        }
+        .listwriter, .listdate{
+            width: 15%;
+        }
+        .listtitle{
+            width: 50%;
+        }
+    </style>
 </head>
 <body>
     <jsp:include page="../Common/Link.jsp" /> <!--공통 상단 링크-->
     <h2>목록보기(List)</h2>
     <!--검색폼-->
     <form method="get">
-        <table border="1" width="90%">
+        <table class="ListTable">
             <tr>
-                <td align="center">
+                <td class="txtcenter">
                     <select name="searchField">
                         <option value="title">제목</option>
                         <option value="content">내용</option>
@@ -52,20 +75,20 @@
     </form>
 
     <!--게시물 목록 테이블(표)-->
-    <table border="1" width="90%">
+    <table class="ListTable">
         <tr>
-            <th width="10%">번호</th>
-            <th width="50%">제목</th>
-            <th width="15%">작성자</th>
-            <th width="10%">조회수</th>
-            <th width="15%">작성일</th>
+            <th class="listno">번호</th>
+            <th class="listtitle">제목</th>
+            <th class="listwriter">작성자</th>
+            <th class="listcnt">조회수</th>
+            <th class="listdate">작성일</th>
         </tr>
         <!--목록의 내용-->
         <%
             if(boardLists.isEmpty()){ // 게시물이 없을 때
         %>
         <tr>
-            <td colspan="5" align="center">
+            <td colspan="5" class="txtcenter">
                 등록된 게시물이 없습니다.
             </td>
         </tr>
@@ -75,14 +98,14 @@
                 for(BoardDTO dto : boardLists){
                     virtualNum = totalCount--;
         %>
-        <tr align="center">
+        <tr class="txtcenter">
             <td><%=virtualNum%></td>
-            <td align="left">
+            <td class="txtleft">
                 <a href="View.jsp?num<%=dto.getNum()%>"><%= dto.getTitle()%></a>
             </td>
-            <td align="center"><%=dto.getId()%></td>
-            <td align="center"><%=dto.getVisitcount()%></td>
-            <td align="center"><%=dto.getPostdate()%></td>
+            <td class="txtcenter"><%=dto.getId()%></td>
+            <td class="txtcenter"><%=dto.getVisitcount()%></td>
+            <td class="txtcenter"><%=dto.getPostdate()%></td>
         </tr>
         <%
                 }
@@ -91,7 +114,7 @@
     </table>
     <!--목록 하단의 [글쓰기] 버튼-->
     <table>
-        <tr align="right">
+        <tr class="txtright">
             <td>
                 <button type="button" onclick="location.href='Write.jsp';">글쓰기</button>
             </td>
