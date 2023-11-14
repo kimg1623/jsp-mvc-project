@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+.ListTable{
+    border: 1px solid #000;
+    width: 90%;
+}
+.txtcenter{
+    text-align: center;
+}
+.txtleft{
+    text-align: left;
+}
+.txtright{
+    text-align: right;
+}
+.listno, .listcnt{
+    width: 10%;
+}
+.listwriter, .listdate{
+    width: 15%;
+}
+.listtitle{
+    width: 50%;
+}
+.writeTitle{
+    width: 90%;
+}
+.writeContent{
+    width: 90%;
+    height: 100px;
+}
