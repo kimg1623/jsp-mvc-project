@@ -30,30 +30,7 @@
 <html>
 <head>
     <title>회원제 게시판</title>
-    <style>
-        .ListTable{
-            border: 1px solid #000;
-            width: 90%;
-        }
-        .txtcenter{
-            text-align: center;
-        }
-        .txtleft{
-            text-align: left;
-        }
-        .txtright{
-            text-align: right;
-        }
-        .listno, .listcnt{
-            width: 10%;
-        }
-        .listwriter, .listdate{
-            width: 15%;
-        }
-        .listtitle{
-            width: 50%;
-        }
-    </style>
+    <link href="../css/boardStyle.css" rel="stylesheet"/>
 </head>
 <body>
     <jsp:include page="../Common/Link.jsp" /> <!--공통 상단 링크-->
