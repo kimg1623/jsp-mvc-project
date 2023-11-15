@@ -25,7 +25,7 @@
             if(confirmed){
                 var form = document.writeFrm;
                 form.method = "post";
-                form.aciton = "DeleteProcess.jsp";
+                form.action = "DeleteProcess.jsp";
                 form.submit();
             }
         }
@@ -34,7 +34,7 @@
 <body>
     <jsp:include page="../Common/Link.jsp"/>
     <h2>회원제 게시판 - 상세보기(View)</h2>
-    <form name="ViewFrm">
+    <form name="writeFrm">
         <input type="hidden" name="num" value="<%=num%>"/>
         <table class="ListTable">
             <tr>
@@ -67,8 +67,6 @@
                     <%
                         }
                     %>
-            </tr>
-            <tr>
                     <button type="button" onclick="location.href='List.jsp'">목록 보기</button>
                 </td>
             </tr>
