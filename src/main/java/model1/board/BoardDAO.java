@@ -10,7 +10,7 @@ import java.util.Vector;
 
 public class BoardDAO extends JDBConnect {
     public BoardDAO(ServletContext application){
-        super(application);
+        super(application); //
     }
 
     // 검색 조건에 맞는 게시물의 개수를 반환

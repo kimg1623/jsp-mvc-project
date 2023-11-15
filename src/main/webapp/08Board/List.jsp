@@ -78,7 +78,7 @@
         <tr class="txtcenter">
             <td><%=virtualNum%></td>
             <td class="txtleft">
-                <a href="View.jsp?num<%=dto.getNum()%>"><%= dto.getTitle()%></a>
+                <a href="View.jsp?num=<%=dto.getNum()%>"><%= dto.getTitle()%></a>
             </td>
             <td class="txtcenter"><%=dto.getId()%></td>
             <td class="txtcenter"><%=dto.getVisitcount()%></td>
