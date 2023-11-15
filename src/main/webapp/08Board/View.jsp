@@ -21,7 +21,13 @@
     <link href="../css/boardStyle.css" rel="stylesheet"/>
     <script>
         function deletePost(){
-
+            var confirmed = confirm("정말로 삭제하시겠습니까?");
+            if(confirmed){
+                var form = document.writeFrm;
+                form.method = "post";
+                form.aciton = "DeleteProcess.jsp";
+                form.submit();
+            }
         }
     </script>
 </head>
