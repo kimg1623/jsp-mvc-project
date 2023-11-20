@@ -74,16 +74,63 @@ public class BoardDAO extends JDBConnect {
     public List<BoardDTO> selectListPage(Map<String, Object> map){
         List<BoardDTO> bbs = new Vector<>();
 
-        String query = "SELECT * FROM board";
-        if(map.get("searchWord") != null){
-            query += " WHERE " + map.get("searchField") + " "
-                    + " LIKE  '%" + map.get("searchWord") + "%'";
+        String query = "SELECT * FROM ( "
+                + " SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, b.* "
+                + " FROM  board b,(SELECT @ROWNUM := 0 ) TMP ";
+
+        // 검색 조건 추가
+        if (map.get("searchWord") != null) {
+            query += " WHERE " + map.get("searchField")
+                    + " LIKE '%" + map.get("searchWord") + "%' ";
         }
-        query += " ORDER BY num DESC ";
+
+        query += " ORDER BY  num DESC ) T " +
+                " WHERE ROWNUM BETWEEN ? AND ? ;";
 
         try{
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(query);
+            psmt = con.prepareStatement(query);
+            psmt.setString(1, map.get("start").toString());
+            psmt.setString(2, map.get("end").toString());
+            rs = psmt.executeQuery();
+            while(rs.next()){
+                // 한 행(게시물 하나)의 내용을 DTO에 저장
+                BoardDTO dto = new BoardDTO();
+
+                dto.setNum(rs.getString("num"));
+                dto.setTitle(rs.getString("title"));
+                dto.setContent(rs.getString("content"));
+                dto.setPostdate(rs.getDate("postdate"));
+                dto.setId(rs.getString("id"));
+                dto.setVisitcount(rs.getString("visitcount"));
+
+                bbs.add(dto);
+            }
+        } catch (Exception e) {
+            System.out.println("게시물 조회 중 예외 발생");
+            e.printStackTrace();
+        }
+
+        return bbs;
+    }
+    public List<BoardDTO> selectListPage2(Map<String, Object> map){
+        List<BoardDTO> bbs = new Vector<>();
+
+        String query = "SELECT * FROM board ";
+
+        // 검색 조건 추가
+        if (map.get("searchWord") != null) {
+            query += " WHERE " + map.get("searchField")
+                    + " LIKE '%" + map.get("searchWord") + "%' ";
+        }
+
+        query += " ORDER BY num DESC " +
+                " LIMIT ? OFFSET ? ";
+
+        try{
+            psmt = con.prepareStatement(query);
+            psmt.setString(1, map.get("pageSize").toString());
+            psmt.setString(2, map.get("offset").toString());
+            rs = psmt.executeQuery();
             while(rs.next()){
                 // 한 행(게시물 하나)의 내용을 DTO에 저장
                 BoardDTO dto = new BoardDTO();

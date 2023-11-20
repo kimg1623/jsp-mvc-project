@@ -3,6 +3,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="model1.board.BoardDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="utils.BoardPage" %>
 <%--
   Created by IntelliJ IDEA.
   User: Jiwon Kim
@@ -24,7 +25,32 @@
         param.put("searchWord", searchWord);
     }
     int totalCount = dao.selectCount(param);
-    List<BoardDTO> boardLists = dao.selectList(param);
+
+    /** 페이징 처리 start **/
+    // 1.전체 페이지 수 계산
+    int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
+    int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
+    int totalPage = (int)Math.ceil((double)totalCount/pageSize); // 전체 페이지 수
+
+    // 현재 페이지 확인
+    int pageNum = 1; // 현재페이지 기본 값
+    String pageTemp = request.getParameter("pageNum");
+    if(pageTemp != null && !pageTemp.equals(""))
+        pageNum = Integer.parseInt(pageTemp); // 파라미터로 요청받은 페이지 수로 수정, 없을 경우 1
+
+    // 목록에 출력할 게시물 범위 계산
+    int start = (pageNum - 1)*pageSize+1; // 첫 게시물 번호
+    int end = pageNum * pageSize; // 마지막 게시물 번호
+    param.put("pageSize", pageSize);
+    int offset = (pageNum - 1)*pageSize;
+    param.put("offset", offset);
+    param.put("start", start);
+    param.put("end", end);
+
+    int jwstart = (pageSize-1)*10;
+    param.put("jwstart", jwstart);
+
+    List<BoardDTO> boardLists = dao.selectListPage(param);
     dao.close();
 %>
 <html>
@@ -34,7 +60,14 @@
 </head>
 <body>
     <jsp:include page="../Common/Link.jsp" /> <!--공통 상단 링크-->
-    <h2>목록보기(List)</h2>
+    <h2>목록보기(List) - 현재 페이지 : <%=pageNum%>(전체 : <%=totalPage%>)
+        <%
+            if(searchWord != null) {
+            %> 검색키워드 <%=searchWord%>
+        <%
+            }
+        %>
+    </h2>
     <!--검색폼-->
     <form method="get">
         <table class="ListTable">
@@ -72,8 +105,10 @@
         <%
             } else { // 게시물이 있을 때
                 int virtualNum = 0; // 화면상에서의 게시물 번호
+                int countNum = 0;
                 for(BoardDTO dto : boardLists){
-                    virtualNum = totalCount--;
+                    // virtualNum = totalCount--; // 기존 코드
+                    virtualNum = totalCount - (((pageNum - 1)*pageSize)+countNum++);
         %>
         <tr class="txtcenter">
             <td><%=virtualNum%></td>
@@ -90,9 +125,12 @@
         %>
     </table>
     <!--목록 하단의 [글쓰기] 버튼-->
-    <table>
-        <tr class="txtright">
+    <table class="ListTable">
+        <tr class="txtcenter">
             <td>
+                <%=BoardPage.pagingStr(totalCount, pageSize, blockPage, pageNum, request.getRequestURI())%>
+            </td>
+            <td class="txtleft">
                 <button type="button" onclick="location.href='Write.jsp';">글쓰기</button>
             </td>
         </tr>
