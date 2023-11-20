@@ -77,4 +77,14 @@
         <url-pattern>/12Servlet/DirectServletPrint.do</url-pattern>
     </servlet-mapping>
 
+    <!-- 서블릿 등록 : MVC2 게시판 -->
+    <servlet>
+        <servlet-name>MVCBoardList</servlet-name>
+        <servlet-class>model2.mvcboard.ListController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MVCBoardList</servlet-name>
+        <url-pattern>/mvcboard/list.do</url-pattern>
+    </servlet-mapping>g
+
 </web-app>
