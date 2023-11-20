@@ -57,16 +57,16 @@ public class MVCBoardDAO extends DBConnPool { // 커넥션 풀 상속
             while (rs.next()) {
                 MVCBoardDTO dto = new MVCBoardDTO();
 
-                dto.setIdx(rs.getString(1));
-                dto.setName(rs.getString(2));
-                dto.setTitle(rs.getString(3));
-                dto.setContent(rs.getString(4));
-                dto.setPostdate(rs.getDate(5));
-                dto.setOfile(rs.getString(6));
-                dto.setSfile(rs.getString(7));
-                dto.setDowncount(rs.getInt(8));
-                dto.setPass(rs.getString(9));
-                dto.setVisitcount(rs.getInt(10));
+                dto.setIdx(rs.getString("idx"));
+                dto.setName(rs.getString("name"));
+                dto.setTitle(rs.getString("title"));
+                dto.setContent(rs.getString("content"));
+                dto.setPostdate(rs.getDate("postdate"));
+                dto.setOfile(rs.getString("ofile"));
+                dto.setSfile(rs.getString("sfile"));
+                dto.setDowncount(rs.getInt("downcount"));
+                dto.setPass(rs.getString("pass"));
+                dto.setVisitcount(rs.getInt("visitcount"));
 
                 board.add(dto);
             }
@@ -112,16 +112,16 @@ public class MVCBoardDAO extends DBConnPool { // 커넥션 풀 상속
             rs = psmt.executeQuery();  // 쿼리문 실행
 
             if (rs.next()) {  // 결과를 DTO 객체에 저장
-                dto.setIdx(rs.getString(1));
-                dto.setName(rs.getString(2));
-                dto.setTitle(rs.getString(3));
-                dto.setContent(rs.getString(4));
-                dto.setPostdate(rs.getDate(5));
-                dto.setOfile(rs.getString(6));
-                dto.setSfile(rs.getString(7));
-                dto.setDowncount(rs.getInt(8));
-                dto.setPass(rs.getString(9));
-                dto.setVisitcount(rs.getInt(10));
+                dto.setIdx(rs.getString("idx"));
+                dto.setName(rs.getString("name"));
+                dto.setTitle(rs.getString("title"));
+                dto.setContent(rs.getString("content"));
+                dto.setPostdate(rs.getDate("postdate"));
+                dto.setOfile(rs.getString("ofile"));
+                dto.setSfile(rs.getString("sfile"));
+                dto.setDowncount(rs.getInt("downcount"));
+                dto.setPass(rs.getString("pass"));
+                dto.setVisitcount(rs.getInt("visitcount"));
             }
         }
         catch (Exception e) {

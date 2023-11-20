@@ -85,6 +85,6 @@
     <servlet-mapping>
         <servlet-name>MVCBoardList</servlet-name>
         <url-pattern>/mvcboard/list.do</url-pattern>
-    </servlet-mapping>g
+    </servlet-mapping>
 
 </web-app>
