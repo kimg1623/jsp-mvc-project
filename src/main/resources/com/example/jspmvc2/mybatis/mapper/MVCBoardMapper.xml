@@ -23,6 +23,25 @@
 
     <select id="selectListPage" parameterType="map" resultType="model2.mvcboard.MVCBoardDTO">
         SELECT *
+        FROM (SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, b.*
+              FROM  mvcboard b,(SELECT @ROWNUM := 0 ) TMP
+        <if test="searchWord != null and !searchWord.equals('')">
+            WHERE
+            <choose>
+                <when test="searchField == 'title'">
+                    title like concat('%', #{searchWord}, '%')
+                </when>
+                <otherwise>
+                    content like concat('%', #{searchWord}, '%')
+                </otherwise>
+            </choose>
+        </if>
+        ORDER BY idx DESC ) T
+        WHERE ROWNUM BETWEEN #{start} AND #{end}
+    </select>
+    <!-- 임시
+    <select id="selectListPage" parameterType="map" resultType="model2.mvcboard.MVCBoardDTO">
+        SELECT *
         FROM mvcboard
         <if test="searchWord != null and !searchWord.equals('')">
             WHERE
@@ -36,7 +55,7 @@
             </choose>
         </if>
         order by idx desc
-    </select>
+    </select> -->
 
     <insert id="insertWrite" parameterType="model2.mvcboard.MVCBoardDTO">
         INSERT

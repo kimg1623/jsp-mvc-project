@@ -47,9 +47,6 @@
     param.put("start", start);
     param.put("end", end);
 
-    int jwstart = (pageSize-1)*10;
-    param.put("jwstart", jwstart);
-
     List<BoardDTO> boardLists = dao.selectListPage(param);
     dao.close();
 %>
