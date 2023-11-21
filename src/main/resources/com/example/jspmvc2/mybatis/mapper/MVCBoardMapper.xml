@@ -60,7 +60,11 @@
     <insert id="insertWrite" parameterType="model2.mvcboard.MVCBoardDTO">
         INSERT
         INTO mvcboard(name, title, content, ofile, sfile, pass)
-        VALUES(#{name}, #{title}, #{content}, #{ofile}, #{sfile}, #{pass})
+        VALUES(#{name}, #{title}, #{content}, #{ofile}, #{sfile}, #{pass}+(
+            SELECT AUTO_INCREMENT
+            FROM information_schema.tables
+            WHERE table_name = 'mvcboard'
+              AND table_schema = DATABASE())
     </insert>
 
     <select id="selectListPageWithPaging" parameterType="map" resultType="model2.mvcboard.MVCBoardDTO">
@@ -109,7 +113,8 @@
     <select id="confirmPassword" parameterType="map">
         select count(idx)
         from mvcboard
-        where pass = #{pass} and idx = #{idx}
+        where pass = sha2(#{pass}+{#idx}, 256)
+          and idx = #{idx}
     </select>
 
     <delete id="deletePost">
@@ -122,6 +127,6 @@
         update mvcboard
         set title = #{title}, name = #{name},
             content = #{content}, ofile = #{ofile}, sfile = #{sfile}
-        where idx = #{idx} and pass = #{pass}
+        where idx = #{idx} and pass = sha2(#{pass}+#{idx}, 256)
     </update>
 </mapper>

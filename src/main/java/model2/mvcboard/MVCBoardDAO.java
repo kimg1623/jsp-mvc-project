@@ -81,6 +81,7 @@ public class MVCBoardDAO extends DBConnPool{ // 커넥션 풀 상속
         try(SqlSession session = sqlSessionFactory.openSession()){
             MVCBoardMapper mapper = session.getMapper(MVCBoardMapper.class);
             mapper.updateVisitCount(idx);
+            session.commit();
         }
         catch (Exception e) {
             System.out.println("조회수 증가 중 예외 발생");
