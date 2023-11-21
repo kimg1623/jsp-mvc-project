@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/mvcboard/pass.do")
+@WebServlet("/mvcboard/pass2.do")
 public class PassController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

@@ -9,7 +9,7 @@
 <style>a{text-decoration:none;}</style>
 </head>
 <body>
-    <h2>파일 첨부형 게시판 - 목록 보기(List)</h2>
+    <h2>파일 첨부형 게시판 - 목록 보기(List) (전체:${ map.totalCount })</h2>
 
     <!-- 검색 폼 -->
     <form method="get">  

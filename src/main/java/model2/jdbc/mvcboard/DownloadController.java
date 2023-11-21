@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/mvcboard/download.do")
+@WebServlet("/mvcboard/download2.do")
 public class DownloadController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	

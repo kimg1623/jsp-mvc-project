@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.jspmvc2.mybatis.mapper.MVCBoardMapper">
+<mapper namespace="model2.mybatis.MVCBoardMapper">
 
     <select id="selectCount" parameterType="map" resultType="int">
         select count(*)
@@ -35,6 +35,7 @@
                 </otherwise>
             </choose>
         </if>
+        order by idx desc
     </select>
 
     <insert id="insertWrite" parameterType="model2.mvcboard.MVCBoardDTO">

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/mvcboard/edit.do")
+@WebServlet("/mvcboard/edit2.do")
 @MultipartConfig(
 	maxFileSize = 1024 * 1024 * 1,
 	maxRequestSize = 1024 * 1024 * 10
