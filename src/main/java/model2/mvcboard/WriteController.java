@@ -45,7 +45,7 @@ public class WriteController extends HttpServlet {
         dto.setPass(req.getParameter("pass"));
 
         // 원본 파일명과 저장된 파일 이름 설정
-        if (originalFileName != "") {
+        if (originalFileName != "" && !originalFileName.equals("")) {
         	// 파일명 변경
         	String savedFileName = FileUtil.renameFile(saveDirectory, originalFileName);
 
